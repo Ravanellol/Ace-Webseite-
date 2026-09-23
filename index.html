@@ -18,10 +18,10 @@
   <!-- Bewusst ohne "defer": intro.js muss vor dem ersten Rendern entscheiden,
        ob das Intro-Overlay gezeigt wird (sonst blitzt die Seite kurz auf). -->
   <script src="js/intro.js"></script>
-  <!-- Burger-Menü und Link-Attrappen -->
+  <!-- Burger-Menü, Menü-Links und Link-Attrappen -->
   <script src="js/nav.js" defer></script>
 </head>
-<body>
+<body id="top">
 
   <!-- Intro: Cursor-Taschenlampe. Wird nur angezeigt, wenn intro.js aktiv ist. -->
   <div class="intro" id="intro" aria-hidden="true">
@@ -32,18 +32,18 @@
 
   <header class="site-header">
     <div class="container site-header__inner">
-      <!-- Hinweis: Alle Links und Buttons sind Attrappen (href="#"). Sie sehen
-           klickbar aus, lösen aber nichts aus (siehe js/nav.js). -->
-      <a class="logo" href="#" aria-label="ACE – Startseite">
+      <!-- Logo und Navigation springen zu den Abschnitten. Buttons, Pikettnummer
+           und E-Mail sind Attrappen (href="#") ohne Funktion (siehe js/nav.js). -->
+      <a class="logo" href="#top" aria-label="ACE – zum Seitenanfang">
         <img class="logo__img" src="img/ace-logo.png" alt="ACE" width="81" height="32">
       </a>
 
       <!-- Desktop-Navigation -->
       <nav class="site-nav" aria-label="Hauptnavigation">
-        <a href="#">So funktioniert es</a>
-        <a href="#">Zwei Stufen</a>
-        <a href="#">Für Betriebe</a>
-        <a href="#">Kontakt</a>
+        <a href="#ablauf">So funktioniert es</a>
+        <a href="#stufen">Zwei Stufen</a>
+        <a href="#betriebe">Für Betriebe</a>
+        <a href="#kontakt">Kontakt</a>
       </nav>
 
       <!-- Burger-Button (nur auf kleinen Bildschirmen sichtbar) -->
@@ -58,10 +58,10 @@
     <div class="mobile-menu" id="mobile-menu">
       <nav class="container mobile-menu__inner" aria-label="Mobile Navigation">
         <ul class="mobile-menu__list">
-          <li><a class="mobile-menu__link" href="#">So funktioniert es</a></li>
-          <li><a class="mobile-menu__link" href="#">Zwei Stufen</a></li>
-          <li><a class="mobile-menu__link" href="#">Für Betriebe</a></li>
-          <li><a class="mobile-menu__link" href="#">Kontakt</a></li>
+          <li><a class="mobile-menu__link" href="#ablauf">So funktioniert es</a></li>
+          <li><a class="mobile-menu__link" href="#stufen">Zwei Stufen</a></li>
+          <li><a class="mobile-menu__link" href="#betriebe">Für Betriebe</a></li>
+          <li><a class="mobile-menu__link" href="#kontakt">Kontakt</a></li>
         </ul>
         <a class="button button--lg button--block" href="#">Abo anfragen</a>
         <p class="mobile-menu__meta">Pikett 24/7 · 044 500 20 00</p>

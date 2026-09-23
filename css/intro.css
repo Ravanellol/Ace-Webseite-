@@ -149,9 +149,10 @@ html.intro-active .intro-skip.is-hidden {
 
 
 /* --------------------------------------------------------------------------
-   Reduzierte Bewegung: Intro komplett weglassen (Absicherung zu intro.js)
+   Kein Intro bei reduzierter Bewegung und auf Mobilgeräten
+   (Absicherung zu intro.js, gleiche Bedingungen)
    -------------------------------------------------------------------------- */
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse), (max-width: 820px) {
   html.intro-active,
   html.intro-active body {
     overflow: visible;

@@ -4,12 +4,13 @@
    Ablauf:
    1. Beim Laden verdeckt ein schwarzes Overlay die ganze Seite.
    2. Ein weicher Lichtkegel (170 px Radius) folgt dem Mauszeiger flüssig.
-      Auf Touch-Geräten ohne Maus bleibt er in der Bildschirmmitte.
    3. Genau 5 s nach dem Laden (window "load") weitet sich der Kegel von der
       aktuellen Position aus in 1 s auf den ganzen Bildschirm aus. Danach
       wird das Overlay entfernt und die Seite ist normal bedienbar.
    4. Während des Intros ist Scrollen gesperrt. «Intro überspringen» oder die
-      Escape-Taste beenden es sofort. Bei prefers-reduced-motion entfällt es.
+      Escape-Taste beenden es sofort.
+   5. Kein Intro bei prefers-reduced-motion und auf Mobilgeräten
+      (Touch ohne Maus oder Bildschirm bis 820 px Breite).
 
    Das Skript wird bewusst synchron im <head> geladen: So steht die Klasse
    .intro-active schon vor dem ersten Rendern fest und die Seite blitzt nicht auf.
@@ -32,10 +33,17 @@
 
   var root = document.documentElement;
 
-  /* Bei reduzierter Bewegung gibt es kein Intro. */
-  var reduceMotion = window.matchMedia &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduceMotion) {
+  if (!window.matchMedia) return;
+
+  /* Kein Intro bei reduzierter Bewegung … */
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* … und auf Mobilgeräten: keine echte Maus oder schmaler Bildschirm
+     (gleiche Grenze wie das Burger-Menü in style.css). */
+  var hasMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var isSmallScreen = window.matchMedia('(max-width: 820px)').matches;
+
+  if (reduceMotion || !hasMouse || isSmallScreen) {
     return;
   }
 
@@ -47,9 +55,6 @@
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
   }
-
-  /* Gibt es eine echte Maus? Sonst (Touch) bleibt das Licht in der Mitte. */
-  var hasMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   /* ---------- Zustand ---------- */
   var intro = null;       // Overlay-Element
@@ -72,7 +77,7 @@
     intro.style.setProperty('--intro-r', radius.toFixed(1) + 'px');
   }
 
-  /* Bildschirmmitte als Startpunkt (und Dauerposition auf Touch-Geräten). */
+  /* Bildschirmmitte als Startpunkt, bis sich die Maus bewegt. */
   function center() {
     target.x = window.innerWidth / 2;
     target.y = window.innerHeight / 2;
@@ -151,7 +156,6 @@
     intro.classList.add('is-done');
 
     window.removeEventListener('pointermove', onPointerMove);
-    window.removeEventListener('resize', onResize);
     document.removeEventListener('keydown', onKeyDown);
 
     setTimeout(function () {
@@ -167,10 +171,6 @@
 
   function onKeyDown(event) {
     if (event.key === 'Escape') skip();
-  }
-
-  function onResize() {
-    if (!hasMouse) center();
   }
 
   /* 5-Sekunden-Timer ab dem vollständigen Laden der Seite. */
@@ -200,10 +200,7 @@
     current.y = target.y;
     paint();
 
-    if (hasMouse) {
-      window.addEventListener('pointermove', onPointerMove, { passive: true });
-    }
-    window.addEventListener('resize', onResize);
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
     document.addEventListener('keydown', onKeyDown);
     skipButton.addEventListener('click', skip);
 

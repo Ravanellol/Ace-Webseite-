@@ -4,8 +4,9 @@
    - Der Burger-Button öffnet und schliesst das mobile Menü.
      Schliessen auch per Escape-Taste, per Klick auf einen Menüpunkt oder
      wenn das Fenster auf Desktop-Breite wächst.
-   - Alle Links mit href="#" sind reine Attrappen: Sie sehen klickbar aus
-     (Hover-, Fokus- und Klickzustände), lösen aber keine Aktion aus.
+   - Die Menü-Links springen zu den Abschnitten (#ablauf, #stufen, ...).
+   - Links mit href="#" (Buttons, Pikettnummer, E-Mail) sind reine Attrappen:
+     Sie sehen klickbar aus, lösen aber keine Aktion aus.
    ========================================================================== */
 
 (function () {
@@ -23,13 +24,7 @@
   /* Verhindert, dass "#"-Links an den Seitenanfang springen oder die URL ändern. */
   document.addEventListener('click', function (event) {
     var link = event.target.closest('a[href="#"]');
-    if (!link) return;
-    event.preventDefault();
-
-    /* Ein Klick im mobilen Menü schliesst es wie bei einer echten Navigation. */
-    if (menu && menu.contains(link)) {
-      setMenu(false);
-    }
+    if (link) event.preventDefault();
   });
 
 
@@ -50,6 +45,12 @@
 
   burger.addEventListener('click', function () {
     setMenu(!isOpen());
+  });
+
+  /* Klick auf einen Menüpunkt: Menü schliessen, der Browser springt danach
+     zum Abschnitt (die Scroll-Sperre ist dann bereits aufgehoben). */
+  menu.addEventListener('click', function (event) {
+    if (event.target.closest('a')) setMenu(false);
   });
 
   /* Escape schliesst das Menü und gibt den Fokus an den Burger zurück. */

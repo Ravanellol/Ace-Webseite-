@@ -55,6 +55,9 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* Sprungziele nicht unter dem Sticky-Header verstecken */
+  scroll-padding-top: 80px;
 }
 
 body {
@@ -849,6 +852,10 @@ html.menu-open body {
 
 /* Weniger Bewegung: Puls und weiches Scrollen abschalten */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .mobile-menu.is-open {
     animation: none;
   }
