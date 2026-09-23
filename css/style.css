@@ -55,9 +55,6 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  scroll-behavior: smooth;
-  /* Anker-Sprünge nicht unter dem Sticky-Header verstecken */
-  scroll-padding-top: 72px;
 }
 
 body {
@@ -175,6 +172,129 @@ a {
   border-bottom-color: var(--color-yellow-hover);
 }
 
+/* Burger-Button: drei Linien, wird beim Öffnen zum X */
+.burger {
+  display: none;
+  position: relative;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px; /* optisch bündig mit dem Seitenrand */
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.burger__line {
+  position: absolute;
+  left: 11px;
+  width: 22px;
+  height: 2px;
+  background: var(--color-offwhite);
+  transition:
+    transform 180ms var(--ease-standard),
+    opacity 120ms var(--ease-standard),
+    background var(--dur-fast) var(--ease-standard);
+}
+
+.burger__line:nth-child(1) { top: 14px; }
+.burger__line:nth-child(2) { top: 21px; }
+.burger__line:nth-child(3) { top: 28px; }
+
+.burger:hover .burger__line {
+  background: var(--color-yellow);
+}
+
+.burger[aria-expanded="true"] .burger__line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.burger[aria-expanded="true"] .burger__line:nth-child(2) {
+  opacity: 0;
+}
+
+.burger[aria-expanded="true"] .burger__line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobiles Menü: Panel unter dem Header */
+.mobile-menu {
+  display: none;
+  border-top: 1px solid var(--color-line-dark);
+  background: var(--color-black);
+  max-height: calc(100vh - 65px);
+  max-height: calc(100dvh - 65px);
+  overflow-y: auto;
+}
+
+.mobile-menu.is-open {
+  display: block;
+  animation: menu-in 180ms var(--ease-standard);
+}
+
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.mobile-menu__inner {
+  padding-top: 8px;
+  padding-bottom: 32px;
+}
+
+.mobile-menu__list {
+  margin-bottom: 32px;
+}
+
+.mobile-menu__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -.01em;
+  color: var(--color-offwhite);
+  border-bottom: 1px solid var(--color-line-dark);
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+
+/* Kleiner Pfeil rechts als Klick-Hinweis */
+.mobile-menu__link::after {
+  content: "→";
+  font-weight: 400;
+  color: var(--color-grey);
+  transition: color var(--dur-fast) var(--ease-standard), transform var(--dur-fast) var(--ease-standard);
+}
+
+.mobile-menu__link:hover,
+.mobile-menu__link:active {
+  color: var(--color-yellow);
+}
+
+.mobile-menu__link:hover::after {
+  color: var(--color-yellow);
+  transform: translateX(4px);
+}
+
+.mobile-menu__meta {
+  margin-top: 24px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: var(--tracking-overline);
+  color: var(--color-grey);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Scrollen der Seite sperren, solange das Menü offen ist */
+html.menu-open,
+html.menu-open body {
+  overflow: hidden;
+}
+
 
 /* --------------------------------------------------------------------------
    4. Hero
@@ -279,6 +399,11 @@ a {
 .button--lg {
   padding: 16px 28px;
   font-size: 17px;
+}
+
+.button--block {
+  display: flex;
+  width: 100%;
 }
 
 .button:hover {
@@ -625,29 +750,25 @@ a {
   }
 }
 
-/* Handy: Navigation unter das Logo, horizontal scrollbar */
-@media (max-width: 720px) {
-  html {
-    scroll-padding-top: 112px;
+/* Handy und kleines Tablet: Burger statt Navigation */
+@media (max-width: 820px) {
+  .site-nav {
+    display: none;
+  }
+
+  .burger {
+    display: block;
   }
 
   .site-header__inner {
-    flex-wrap: wrap;
-    gap: 12px;
-    padding-top: 12px;
-    padding-bottom: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
+}
 
-  .site-nav {
-    width: 100%;
-    gap: 24px;
-    padding-bottom: 12px;
-    font-size: 14px;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  .site-nav::-webkit-scrollbar {
+/* Ab Desktop-Breite ist das mobile Menü nie sichtbar */
+@media (min-width: 821px) {
+  .mobile-menu.is-open {
     display: none;
   }
 }
@@ -728,8 +849,8 @@ a {
 
 /* Weniger Bewegung: Puls und weiches Scrollen abschalten */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+  .mobile-menu.is-open {
+    animation: none;
   }
 
   .standby__dot {

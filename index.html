@@ -18,6 +18,8 @@
   <!-- Bewusst ohne "defer": intro.js muss vor dem ersten Rendern entscheiden,
        ob das Intro-Overlay gezeigt wird (sonst blitzt die Seite kurz auf). -->
   <script src="js/intro.js"></script>
+  <!-- Burger-Menü und Link-Attrappen -->
+  <script src="js/nav.js" defer></script>
 </head>
 <body>
 
@@ -30,19 +32,44 @@
 
   <header class="site-header">
     <div class="container site-header__inner">
-      <a class="logo" href="#top" aria-label="ACE – zum Seitenanfang">
-        <img class="logo__img" src="img/ace-logo.svg" alt="ACE" width="81" height="32">
+      <!-- Hinweis: Alle Links und Buttons sind Attrappen (href="#"). Sie sehen
+           klickbar aus, lösen aber nichts aus (siehe js/nav.js). -->
+      <a class="logo" href="#" aria-label="ACE – Startseite">
+        <img class="logo__img" src="img/ace-logo.png" alt="ACE" width="81" height="32">
       </a>
+
+      <!-- Desktop-Navigation -->
       <nav class="site-nav" aria-label="Hauptnavigation">
-        <a href="#ablauf">So funktioniert es</a>
-        <a href="#stufen">Zwei Stufen</a>
-        <a href="#betriebe">Für Betriebe</a>
-        <a href="#kontakt">Kontakt</a>
+        <a href="#">So funktioniert es</a>
+        <a href="#">Zwei Stufen</a>
+        <a href="#">Für Betriebe</a>
+        <a href="#">Kontakt</a>
+      </nav>
+
+      <!-- Burger-Button (nur auf kleinen Bildschirmen sichtbar) -->
+      <button type="button" class="burger" id="burger" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menü öffnen">
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+      </button>
+    </div>
+
+    <!-- Mobiles Menü, wird über den Burger-Button ein- und ausgeblendet -->
+    <div class="mobile-menu" id="mobile-menu">
+      <nav class="container mobile-menu__inner" aria-label="Mobile Navigation">
+        <ul class="mobile-menu__list">
+          <li><a class="mobile-menu__link" href="#">So funktioniert es</a></li>
+          <li><a class="mobile-menu__link" href="#">Zwei Stufen</a></li>
+          <li><a class="mobile-menu__link" href="#">Für Betriebe</a></li>
+          <li><a class="mobile-menu__link" href="#">Kontakt</a></li>
+        </ul>
+        <a class="button button--lg button--block" href="#">Abo anfragen</a>
+        <p class="mobile-menu__meta">Pikett 24/7 · 044 500 20 00</p>
       </nav>
     </div>
   </header>
 
-  <main id="top">
+  <main>
 
     <!-- Hero -->
     <section class="hero" aria-labelledby="hero-title">
@@ -56,7 +83,7 @@
           <span class="standby" role="img" aria-label="Bereit">
             <span class="standby__dot"></span>
           </span>
-          <a class="button button--lg" href="#kontakt">Abo anfragen</a>
+          <a class="button button--lg" href="#">Abo anfragen</a>
         </div>
         <p class="hero__lead">Nie länger als zwei Stunden ohne Strom.</p>
       </div>
@@ -161,10 +188,10 @@
   <footer class="site-footer" id="kontakt">
     <div class="container site-footer__inner">
       <p class="overline">Strom weg?</p>
-      <a class="pikett" href="tel:+41445002000">044 500 20 00</a>
+      <a class="pikett" href="#">044 500 20 00</a>
       <div class="contact">
         <address class="contact__block">ACE AG<br>Hohlstrasse 188<br>8004 Zürich</address>
-        <p class="contact__block">Pikett 24/7, 365 Tage<br><a href="mailto:hallo@ace.ch">hallo@ace.ch</a></p>
+        <p class="contact__block">Pikett 24/7, 365 Tage<br><a href="#">hallo@ace.ch</a></p>
       </div>
     </div>
     <div class="hazard" aria-hidden="true"></div>
