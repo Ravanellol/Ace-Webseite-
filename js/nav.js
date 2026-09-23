@@ -5,7 +5,8 @@
      Schliessen auch per Escape-Taste, per Klick auf einen Menüpunkt oder
      wenn das Fenster auf Desktop-Breite wächst.
    - Die Menü-Links springen zu den Abschnitten (#ablauf, #stufen, ...).
-   - Links mit href="#" (Buttons, Pikettnummer, E-Mail) sind reine Attrappen:
+   - «Abo anfragen» springt zu #kontakt.
+   - Links mit href="#" (Pikettnummer, E-Mail) sind reine Attrappen:
      Sie sehen klickbar aus, lösen aber keine Aktion aus.
    ========================================================================== */
 
