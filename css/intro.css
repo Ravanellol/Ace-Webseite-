@@ -1,0 +1,164 @@
+/* ==========================================================================
+   Intro-Animation: Cursor-Taschenlampe
+   --------------------------------------------------------------------------
+   Ein schwarzes Overlay verdeckt die Seite. Eine CSS-Maske (radial-gradient)
+   schneidet an der Cursorposition ein weiches, rundes Loch hinein – dort
+   scheint die Website durch. Position und Radius kommen als CSS-Variablen
+   aus js/intro.js:
+     --intro-x   horizontale Position des Lichtkegels (px)
+     --intro-y   vertikale Position des Lichtkegels (px)
+     --intro-r   Radius des Lichtkegels (px)
+   Das Overlay ist nur sichtbar, solange <html> die Klasse .intro-active trägt.
+   Ohne JavaScript (oder bei reduzierter Bewegung) bleibt es unsichtbar.
+   ========================================================================== */
+
+.intro,
+.intro-skip {
+  display: none;
+}
+
+
+/* --------------------------------------------------------------------------
+   Scroll-Sperre während des Intros
+   -------------------------------------------------------------------------- */
+html.intro-active,
+html.intro-active body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+
+/* --------------------------------------------------------------------------
+   Overlay-Container
+   -------------------------------------------------------------------------- */
+html.intro-active .intro {
+  --intro-x: 50vw;
+  --intro-y: 50vh;
+  --intro-r: 170px;
+
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  /* Fängt Klicks und Touch-Gesten ab, solange das Intro läuft */
+  touch-action: none;
+  cursor: default;
+  transition: opacity 300ms cubic-bezier(.2, 0, .2, 1);
+}
+
+/* Schlussphase: Overlay blendet weich aus, bevor es entfernt wird */
+html.intro-active .intro.is-done {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* --------------------------------------------------------------------------
+   Schwarze Fläche mit Maske (das eigentliche "Dunkel")
+   Maske: transparent = Overlay unsichtbar = Licht; schwarz = Overlay sichtbar.
+   Innen 40 % des Radius volles Licht, danach weicher Übergang ins Dunkel.
+   -------------------------------------------------------------------------- */
+.intro__shade {
+  position: absolute;
+  inset: 0;
+  background: var(--color-black, #0D0D0D);
+
+  -webkit-mask-image: radial-gradient(
+    circle var(--intro-r) at var(--intro-x) var(--intro-y),
+    transparent 0%,
+    transparent 40%,
+    rgba(0, 0, 0, .35) 62%,
+    rgba(0, 0, 0, .8) 84%,
+    #000 100%
+  );
+  mask-image: radial-gradient(
+    circle var(--intro-r) at var(--intro-x) var(--intro-y),
+    transparent 0%,
+    transparent 40%,
+    rgba(0, 0, 0, .35) 62%,
+    rgba(0, 0, 0, .8) 84%,
+    #000 100%
+  );
+}
+
+
+/* --------------------------------------------------------------------------
+   Warmgelber Schimmer im Lichtkegel
+   Liegt über der Maske und hellt die beleuchtete Stelle leicht gelblich auf.
+   -------------------------------------------------------------------------- */
+.intro__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background: radial-gradient(
+    circle var(--intro-r) at var(--intro-x) var(--intro-y),
+    rgba(255, 212, 0, .14) 0%,
+    rgba(255, 212, 0, .07) 45%,
+    rgba(255, 212, 0, 0) 100%
+  );
+  transition: opacity 1000ms cubic-bezier(.2, 0, .2, 1);
+}
+
+/* Beim Aufweiten verblasst der Schimmer, damit am Ende neutrales Licht bleibt */
+.intro.is-expanding .intro__glow {
+  opacity: 0;
+}
+
+
+/* --------------------------------------------------------------------------
+   Button «Intro überspringen» (oben rechts, dezent)
+   -------------------------------------------------------------------------- */
+html.intro-active .intro-skip {
+  display: inline-flex;
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 1001;
+  padding: 8px 14px;
+  font-family: var(--font-base, sans-serif);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .01em;
+  line-height: 1.2;
+  color: var(--color-grey, #8A8A8A);
+  background: rgba(13, 13, 13, .6);
+  border: 1px solid #3D3D3D;
+  border-radius: 2px;
+  cursor: pointer;
+  opacity: 0;
+  animation: intro-skip-in 400ms cubic-bezier(.2, 0, .2, 1) 600ms forwards;
+  transition:
+    color 120ms cubic-bezier(.2, 0, .2, 1),
+    border-color 120ms cubic-bezier(.2, 0, .2, 1);
+}
+
+html.intro-active .intro-skip:hover,
+html.intro-active .intro-skip:focus-visible {
+  color: var(--color-offwhite, #F2F2F0);
+  border-color: #6B6B6B;
+}
+
+html.intro-active .intro-skip.is-hidden {
+  visibility: hidden;
+}
+
+@keyframes intro-skip-in {
+  to { opacity: 1; }
+}
+
+
+/* --------------------------------------------------------------------------
+   Reduzierte Bewegung: Intro komplett weglassen (Absicherung zu intro.js)
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html.intro-active,
+  html.intro-active body {
+    overflow: visible;
+  }
+
+  html.intro-active .intro,
+  html.intro-active .intro-skip {
+    display: none;
+  }
+}

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ACE – Notstrom im Abo | Zürich</title>
+  <meta name="description" content="Notstrom im Abo für Zürcher Betriebe: Generator in 2 Stunden vor Ort, Pikett 24/7.">
+  <meta name="theme-color" content="#0D0D0D">
+
+  <!-- Schrift: Figtree (Google Fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&amp;display=swap">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/intro.css">
+
+  <!-- Bewusst ohne "defer": intro.js muss vor dem ersten Rendern entscheiden,
+       ob das Intro-Overlay gezeigt wird (sonst blitzt die Seite kurz auf). -->
+  <script src="js/intro.js"></script>
+</head>
+<body>
+
+  <!-- Intro: Cursor-Taschenlampe. Wird nur angezeigt, wenn intro.js aktiv ist. -->
+  <div class="intro" id="intro" aria-hidden="true">
+    <div class="intro__shade"></div>
+    <div class="intro__glow"></div>
+  </div>
+  <button type="button" class="intro-skip" id="intro-skip">Intro überspringen</button>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="logo" href="#top" aria-label="ACE – zum Seitenanfang">
+        <img class="logo__img" src="img/ace-logo.svg" alt="ACE" width="81" height="32">
+      </a>
+      <nav class="site-nav" aria-label="Hauptnavigation">
+        <a href="#ablauf">So funktioniert es</a>
+        <a href="#stufen">Zwei Stufen</a>
+        <a href="#betriebe">Für Betriebe</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero__inner">
+        <p class="overline hero__overline">ACE | Notstrom im Abo | Zürich</p>
+        <h1 class="hero__title" id="hero-title">
+          Ein Stromausfall kostet euch die Ware.<br>
+          <span class="accent">Oder zwei Stunden.</span>
+        </h1>
+        <div class="hero__actions">
+          <span class="standby" role="img" aria-label="Bereit">
+            <span class="standby__dot"></span>
+          </span>
+          <a class="button button--lg" href="#kontakt">Abo anfragen</a>
+        </div>
+        <p class="hero__lead">Nie länger als zwei Stunden ohne Strom.</p>
+      </div>
+    </section>
+
+    <!-- So funktioniert es -->
+    <section class="section section--light" id="ablauf" aria-labelledby="ablauf-title">
+      <div class="container section__inner">
+        <p class="overline overline--dark">So funktioniert es</p>
+        <h2 class="section__title section__title--steps" id="ablauf-title">Anrufen, warten, weiterarbeiten.</h2>
+        <ol class="steps">
+          <li class="step">
+            <span class="step__number">1</span>
+            <h3 class="step__title">Anrufen</h3>
+            <p class="step__text">Eine Nummer, 24/7.</p>
+          </li>
+          <li class="step">
+            <span class="step__number">2</span>
+            <h3 class="step__title">Wir kommen</h3>
+            <p class="step__text">Generator geliefert und angeschlossen in 2 h.</p>
+          </li>
+          <li class="step">
+            <span class="step__number">3</span>
+            <h3 class="step__title">Weiterarbeiten</h3>
+            <p class="step__text">Wir holen ihn wieder ab.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Zwei Stufen -->
+    <section class="section section--light section--divided" id="stufen" aria-labelledby="stufen-title">
+      <div class="container section__inner">
+        <p class="overline overline--dark">Zwei Stufen</p>
+        <h2 class="section__title section__title--plans" id="stufen-title">Abgesichert oder vorbereitet.</h2>
+
+        <div class="plans">
+          <article class="plan" aria-labelledby="plan-basis">
+            <header class="plan__head">
+              <h3 class="plan__name" id="plan-basis">ACE Basis</h3>
+              <p class="plan__tag">ABGESICHERT</p>
+            </header>
+            <p class="plan__price">
+              <span class="plan__amount">CHF 79</span>
+              <span class="plan__period">/Mt.</span>
+            </p>
+            <p class="plan__note">+ CHF 490 pro Einsatz</p>
+            <hr class="plan__rule">
+            <ul class="plan__features">
+              <li class="feature"><span class="feature__icon" aria-hidden="true">✓</span><span>Notstrom in 2 h vor Ort</span></li>
+              <li class="feature"><span class="feature__icon" aria-hidden="true">✓</span><span>Pikettnummer, 24/7 erreichbar</span></li>
+              <li class="feature"><span class="feature__icon" aria-hidden="true">✓</span><span>Einsätze pro Ereignis verrechnet</span></li>
+              <li class="feature feature--missing"><span class="feature__icon" aria-hidden="true">—</span><span>Kein Vorsorge-Check</span></li>
+              <li class="feature feature--missing"><span class="feature__icon" aria-hidden="true">—</span><span>Kein Vorrang bei Grossereignissen</span></li>
+            </ul>
+          </article>
+
+          <article class="plan plan--dark" aria-labelledby="plan-plus">
+            <header class="plan__head">
+              <h3 class="plan__name" id="plan-plus">ACE Plus</h3>
+              <p class="plan__tag">VORBEREITET</p>
+            </header>
+            <p class="plan__price">
+              <span class="plan__amount">CHF 219</span>
+              <span class="plan__period">/Mt.</span>
+            </p>
+            <p class="plan__note">Einsätze inbegriffen</p>
+            <hr class="plan__rule">
+            <ul class="plan__features">
+              <li class="feature"><span class="feature__icon" aria-hidden="true">✓</span><span>Notstrom in 2 h vor Ort</span></li>
+              <li class="feature"><span class="feature__icon" aria-hidden="true">✓</span><span>Pikettnummer, 24/7 erreichbar</span></li>
+              <li class="feature"><span class="feature__icon" aria-hidden="true">✓</span><span>Alle Einsätze inbegriffen</span></li>
+              <li class="feature"><span class="feature__icon" aria-hidden="true">✓</span><span>Jährlicher Vorsorge-Check</span></li>
+              <li class="feature"><span class="feature__icon" aria-hidden="true">✓</span><span>Vorrang bei Grossereignissen</span></li>
+            </ul>
+          </article>
+        </div>
+
+        <p class="plans__footnote">Beide Stufen monatlich kündbar. Preise exkl. MWST.</p>
+      </div>
+    </section>
+
+    <!-- Für Betriebe -->
+    <section class="section section--dark" id="betriebe" aria-labelledby="betriebe-title">
+      <div class="container section__inner">
+        <h2 class="section__title section__title--large" id="betriebe-title">Für Betriebe, deren Ware am Strom hängt</h2>
+        <ul class="branches">
+          <li>Metzgereien</li>
+          <li>Bäckereien</li>
+          <li>Restaurants</li>
+          <li>Quartierläden</li>
+        </ul>
+        <!-- Bildplatz: laut Designsystem bleibt er leer und mit «folgt» beschriftet, bis echte Fotos vorliegen. -->
+        <figure class="image-slot">
+          <figcaption class="image-slot__caption">folgt — dokumentarische Bildwelt: Kühlraum, Backstube, nach Betriebsschluss</figcaption>
+        </figure>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" id="kontakt">
+    <div class="container site-footer__inner">
+      <p class="overline">Strom weg?</p>
+      <a class="pikett" href="tel:+41445002000">044 500 20 00</a>
+      <div class="contact">
+        <address class="contact__block">ACE AG<br>Hohlstrasse 188<br>8004 Zürich</address>
+        <p class="contact__block">Pikett 24/7, 365 Tage<br><a href="mailto:hallo@ace.ch">hallo@ace.ch</a></p>
+      </div>
+    </div>
+    <div class="hazard" aria-hidden="true"></div>
+  </footer>
+
+</body>
+</html>

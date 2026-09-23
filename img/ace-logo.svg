@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 417 167" width="417" height="167" role="img" aria-label="ACE">
+  <!-- Platzhalter-Logo nach Designsystem-Beschreibung: Kreislauf-Ring (Off-White) mit
+       Signalgelb-Bogen + ACE-Wortmarke. Durch das Original ace-logo.png ersetzen, sobald verfügbar. -->
+  <circle cx="80" cy="84" r="62" fill="none" stroke="#F2F2F0" stroke-width="12"/>
+  <circle cx="80" cy="84" r="62" fill="none" stroke="#FFD400" stroke-width="12"
+          stroke-dasharray="97.4 389.6" transform="rotate(-90 80 84)"/>
+  <g fill="none" stroke="#F2F2F0" stroke-width="16">
+    <path d="M178 132 L210 40 L242 132" stroke-linejoin="miter"/>
+    <path d="M191 102 H229"/>
+    <path d="M338 52 A46 46 0 1 0 338 116"/>
+    <path d="M407 40 H363 V128 H407 M363 84 H398"/>
+  </g>
+</svg>
